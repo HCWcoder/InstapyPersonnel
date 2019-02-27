@@ -26,7 +26,7 @@ def location_to_lonlat(location):  # Get LON and LAT from Instagram Explorer
 
     lat_ = data['graphql']['location']['lat']
     lon_ = data['graphql']['location']['lng']
-    print(lat_, lon_)
+    #print(lat_, lon_)
 
 
 def get_bounding_box(latitude_in_degrees, longitude_in_degrees, half_side_in_miles):
@@ -71,7 +71,6 @@ def set_smart_hashtags_map(location1,
     req = requests.get(url)
     data = json.loads(req.text)
     if int(data['count']) > 0:  # Get how many hashtags we got
-        # sort by ranking
         count = data['count']
         i = 0
         tags: List[Any] = []
@@ -93,3 +92,5 @@ locate = get_bounding_box(lat_, lon_, half_side_in_miles=25)
 
 set_smart_hashtags_map(locate.lon_min, locate.lat_min, locate.lon_max, locate.lat_max,
                        zooming=11, limit=3, log_tags=True)
+
+
