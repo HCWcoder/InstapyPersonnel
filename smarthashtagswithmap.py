@@ -27,6 +27,7 @@ def location_to_lonlat(location):  # Get LON and LAT from Instagram Explorer
     lat_ = data['graphql']['location']['lat']
     lon_ = data['graphql']['location']['lng']
     #print(lat_, lon_)
+    get_bounding_box(lat_, lon_, half_side_in_miles=25)
 
 
 def get_bounding_box(latitude_in_degrees, longitude_in_degrees, half_side_in_miles):
@@ -57,17 +58,18 @@ def get_bounding_box(latitude_in_degrees, longitude_in_degrees, half_side_in_mil
     return (box)
 
 
-def set_smart_hashtags_map(location1,
-                           location2,
-                           location3,
-                           location4,
+def set_smart_hashtags_map(location,
                            zooming,
                            limit=3,
                            log_tags=True):
     """Generate smart hashtags based on https://displaypurposes.com/map"""
+    location_to_lonlat(location)
+
+    locate = get_bounding_box(lat_, lon_, half_side_in_miles=25)
 
     url = ' https://query.displaypurposes.com/local/?bbox='
-    url += '{},{},{},{}&zoom={}'.format(location1, location2, location3, location4, zooming)
+    url += '{},{},{},{}&zoom={}'.format(locate.lon_min, locate.lat_min, locate.lon_max,
+                                        locate.lat_max, zooming)
     req = requests.get(url)
     data = json.loads(req.text)
     if int(data['count']) > 0:  # Get how many hashtags we got
@@ -86,11 +88,4 @@ def set_smart_hashtags_map(location1,
         print(u'Too few results for #{} tag'.format(data['count']))
 
 
-location_to_lonlat("204517928/chicago-illinois")
-
-locate = get_bounding_box(lat_, lon_, half_side_in_miles=25)
-
-set_smart_hashtags_map(locate.lon_min, locate.lat_min, locate.lon_max, locate.lat_max,
-                       zooming=11, limit=3, log_tags=True)
-
-
+set_smart_hashtags_map("204517928/chicago-illinois", 15)
