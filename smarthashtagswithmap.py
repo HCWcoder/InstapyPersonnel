@@ -53,17 +53,18 @@ class Instapy(object):
 
     def set_smart_hashtags_map(self,
                                location,
-                               zooming,
+                               zoom,
+                               miles,
                                limit=3,
                                log_tags=True):
         """Generate smart hashtags based on https://displaypurposes.com/map"""
         self.location_to_lonlat(location)
 
-        self.get_bounding_box(self.lat_, self.lon_, half_side_in_miles=25)
+        self.get_bounding_box(self.lat_, self.lon_, half_side_in_miles=miles)
 
         url = ' https://query.displaypurposes.com/local/?bbox='
         url += '{},{},{},{}&zoom={}'.format(self.lon_min, self.lat_min, self.lon_max,
-                                            self.lat_max, zooming)
+                                            self.lat_max, zoom)
         req = requests.get(url)
         data = json.loads(req.text)
         if int(data['count']) > 0:  # Get how many hashtags we got
@@ -77,11 +78,11 @@ class Instapy(object):
 
             if log_tags is True:
                 print(u'[smart hashtag generated: {}]'.format(self.smart_hashtags))
-            return self.smart_hashtags
+            return self
         else:
             print(u'Too few results for #{} tag'.format(data['count']))
 
 
 # From Instagram Location to displaypurposes/map Feature
 box = Instapy()
-box.set_smart_hashtags_map("204517928/chicago-illinois", 15)
+box.set_smart_hashtags_map("204517928/chicago-illinois", zoom=50, miles=10, limit=10, log_tags=True)
