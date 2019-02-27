@@ -89,6 +89,6 @@ def set_smart_hashtags_map(location,
 
 
 
-# From Instagram Location to displaypurposes/map Feature
+#From Instagram Location to displaypurposes/map Feature
 
 set_smart_hashtags_map("204517928/chicago-illinois", 15)
