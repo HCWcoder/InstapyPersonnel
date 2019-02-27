@@ -88,4 +88,7 @@ def set_smart_hashtags_map(location,
         print(u'Too few results for #{} tag'.format(data['count']))
 
 
+
+# From Instagram Location to displaypurposes/map Feature
+
 set_smart_hashtags_map("204517928/chicago-illinois", 15)
