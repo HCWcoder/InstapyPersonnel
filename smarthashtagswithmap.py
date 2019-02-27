@@ -83,7 +83,7 @@ def set_smart_hashtags_map(location1,
             print(u'[smart hashtag generated: {}]'.format(final_tags))
         return final_tags
     else:
-        print(u'Too few results for #tag')
+        print(u'Too few results for #{} tag'.format(data['count']))
 
 
 location_to_lonlat("204517928/chicago-illinois")
