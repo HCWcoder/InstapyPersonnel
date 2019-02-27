@@ -83,6 +83,5 @@ class Instapy(object):
 
 
 # From Instagram Location to displaypurposes/map Feature
-
 box = Instapy()
 box.set_smart_hashtags_map("204517928/chicago-illinois", 15)
