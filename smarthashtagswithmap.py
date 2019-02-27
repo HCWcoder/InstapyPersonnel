@@ -84,5 +84,7 @@ class Instapy(object):
 
 
 # From Instagram Location to displaypurposes/map Feature
+
 box = Instapy()
 box.set_smart_hashtags_map("204517928/chicago-illinois", zoom=50, miles=10, limit=10, log_tags=True)
+                        ###"""Instagram Location-     ,Zoom map, boundaries, # Limit, Log or not"""
